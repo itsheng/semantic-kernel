@@ -152,26 +152,20 @@ def test_mistral_ai_chat_completion_init_constructor(mistralai_unit_test_env) ->
 def test_mistral_ai_chat_completion_init_constructor_missing_model(mistralai_unit_test_env) -> None:
     # Test successful initialization
     with pytest.raises(ServiceInitializationError):
-        MistralAIChatCompletion(
-            api_key="overwrite_api_key",
-            env_file_path="test.env"
-        )
+        MistralAIChatCompletion(api_key="overwrite_api_key", env_file_path="test.env")
 
 
 @pytest.mark.parametrize("exclude_list", [["MISTRALAI_API_KEY", "MISTRALAI_CHAT_MODEL_ID"]], indirect=True)
 def test_mistral_ai_chat_completion_init_constructor_missing_api_key(mistralai_unit_test_env) -> None:
     # Test successful initialization
     with pytest.raises(ServiceInitializationError):
-        MistralAIChatCompletion(
-            ai_model_id="overwrite_model_id",
-            env_file_path="test.env"
-        )
+        MistralAIChatCompletion(ai_model_id="overwrite_model_id", env_file_path="test.env")
 
 
 def test_mistral_ai_chat_completion_init_hybrid(mistralai_unit_test_env) -> None:
     mistral_ai_chat_completion = MistralAIChatCompletion(
-            ai_model_id="overwrite_model_id",
-            env_file_path="test.env",
+        ai_model_id="overwrite_model_id",
+        env_file_path="test.env",
     )
     assert mistral_ai_chat_completion.ai_model_id == "overwrite_model_id"
     assert mistral_ai_chat_completion.async_client._api_key == "test_api_key"

@@ -42,6 +42,12 @@ try:
 except KeyError:
     anthropic_setup = False
 
+groq_setup: bool = False
+try:
+    if os.environ["GROQ_API_KEY"] and os.environ["GROQ_CHAT_MODEL_ID"]:
+        groq_setup = True
+except KeyError:
+    groq_setup = False
 
 pytestmark = pytest.mark.parametrize(
     "service_id, execution_settings_kwargs, inputs, kwargs",
@@ -108,7 +114,7 @@ pytestmark = pytest.mark.parametrize(
             marks=pytest.mark.skipif(not ollama_setup, reason="Need local Ollama setup"),
             id="ollama_text_input",
         ),
-         pytest.param(
+        pytest.param(
             "anthropic",
             {},
             [
@@ -139,6 +145,17 @@ pytestmark = pytest.mark.parametrize(
             ],
             ["Hello", "well"],
             id="vertex_ai_text_input",
+        ),
+        pytest.param(
+            "groq",
+            {},
+            [
+                ChatMessageContent(role=AuthorRole.USER, items=[TextContent(text="Hello")]),
+                ChatMessageContent(role=AuthorRole.USER, items=[TextContent(text="How are you today?")]),
+            ],
+            ["Hello", "well"],
+            marks=pytest.mark.skipif(not groq_setup, reason="Groq Environment Variables not set"),
+            id="groq_text_input",
         ),
     ],
 )

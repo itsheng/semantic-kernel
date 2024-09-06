@@ -18,7 +18,7 @@ flowery prose.
 kernel = Kernel()
 
 service_id = "groq-ai-chat"
-kernel.add_service(GroqChatCompletion(service_id=service_id, ai_model_id="llama-3.1-70b-versatile"))
+kernel.add_service(GroqChatCompletion(service_id=service_id, ai_model_id="gemma2-9b-it"))
 
 settings = kernel.get_prompt_execution_settings_from_service_id(service_id)
 settings.max_tokens = 2000

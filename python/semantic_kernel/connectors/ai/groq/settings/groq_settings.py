@@ -26,6 +26,5 @@ class GroqSettings(KernelBaseSettings):
     env_prefix: ClassVar[str] = "GROQ_"
 
     api_key: SecretStr
-    org_id: str | None = None
     model: str | None = None
     chat_model_id: str | None = None
